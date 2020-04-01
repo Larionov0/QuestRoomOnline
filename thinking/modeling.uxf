@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>144</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>QuestRoom
+--
+- name: str
+- rooms: list[Room]
+- reward: Reward
+- count_of_players: int
+- players: list
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>264</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Room
+--
+- name: str
+- locations: list[Location]
+- players: list[Player]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>392</x>
+      <y>160</y>
+      <w>40</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>408</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Location
+--
+- name: str
+- used_things: list  //things_which_was_used_to_this_location
+- things_lines: list[AccessLine]
+- adjacent_locations_lines: list[AccessLine]
+- events: list[Event]
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>552</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>MiniLocation</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>424</y>
+      <w>88</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>280</y>
+      <w>40</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>552</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Door
+--
+locks: list[Lock]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>640</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Lock</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>568</y>
+      <w>40</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>408</x>
+      <y>424</y>
+      <w>96</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>616</x>
+      <y>496</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Key
+--
+- number: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>400</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Thing
+--
+- name: str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>304</x>
+      <y>632</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>HeadBreaker</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>568</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>648</x>
+      <y>416</y>
+      <w>80</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>272</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Inventory
+--
+- things: list[Thing]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>136</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+- name: str
+- coins: int
+- achievements: list[Achievement]
+- knowledges: list[Knowledge]
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>152</y>
+      <w>32</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>288</y>
+      <w>40</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>416</y>
+      <w>24</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>528</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Letter
+--
+- text: str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>352</y>
+      <w>96</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;70.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>680</x>
+      <y>0</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Bot
+--
+url: str
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>16</y>
+      <w>40</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>376</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Event
+--
+- things: list[Thing]
+- used_things: list[Thing]
+- massage_to_this_player: str
+- message_to_other_players: str
+- signals: list[Signal]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>136</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Knowledge
+--
+name: str</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1160</x>
+      <y>184</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Event</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>344</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>AccessLine
+--
+from: Location
+to: IAccessable
+conditions: dict</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>592</x>
+      <y>352</y>
+      <w>104</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>376</y>
+      <w>192</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>220.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>160</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Reward
+--
+- coins: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>24</x>
+      <y>472</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>KnowledgeEvent
+--
+knowledges = list[Knowledge]</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>72</x>
+      <y>392</y>
+      <w>104</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>120</x>
+      <y>264</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Signal
+--
+- number: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>152</x>
+      <y>280</y>
+      <w>40</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>248</x>
+      <y>144</y>
+      <w>136</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>72</x>
+      <y>152</y>
+      <w>512</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1..n
+m2=1</panel_attributes>
+    <additional_attributes>620.0;10.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>136</y>
+      <w>96</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>848</x>
+      <y>136</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Achievement
+--
+- proto: AchievementProto
+- name: str
+- difficulty: int
+- progress: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>752</x>
+      <y>136</y>
+      <w>112</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>912</x>
+      <y>32</y>
+      <w>112</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>AchievementProto
+--
+- name: str
+- difficulty: int
+- progress: int</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>880</x>
+      <y>48</y>
+      <w>96</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>424</x>
+      <y>256</y>
+      <w>120</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>256</y>
+      <w>120</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;180.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLInterface</id>
+    <coordinates>
+      <x>528</x>
+      <y>216</y>
+      <w>80</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>IAccessible
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>424</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>Condition
+--
+knowledges: list[Knowledge]
+signal: list[Signal]
+--
++check(player, signals)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>552</x>
+      <y>360</y>
+      <w>40</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=0..n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+</diagram>

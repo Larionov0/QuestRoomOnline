@@ -1,0 +1,90 @@
+class ObjectWithName:
+    _name: str
+
+    @property
+    def name(self):
+        return self._name
+
+
+class QuestRoom(ObjectWithName):
+    def __init__(self, name, count_of_players, rooms, reward, players=None):
+        self._name = name
+        self.__count_of_players = count_of_players
+        self.__rooms = rooms
+        self.__reward = reward
+        if players is None:
+            players = []
+        self.__players = players
+
+    def add_player(self, player):
+        if len(self.__players) < self.__count_of_players:
+            self.__players.append(player)
+
+    @property
+    def count_of_players(self):
+        return self.__count_of_players
+
+
+class Room(ObjectWithName):
+    def __init__(self, name, locations, players=None):
+        self._name = name
+        self._locations = locations
+        if players is None:
+            players = []
+        self._players = players
+
+    def add_location(self, location):
+        self._locations.append(location)
+
+
+class IAccessible:
+    """
+    Интерфейс, который реализует обьекты, на которые
+    могут ссылаться обьекты AccessLine.
+    (Location, Thing)
+    """
+    pass
+
+
+class Location(IAccessible, ObjectWithName):
+    def __init__(self, name, used_things, things_lines, adjacent_locations_lines, events):
+        self._name = name
+        self._used_things = used_things
+        self._things_lines = things_lines
+        self._adjacent_locations_lines = adjacent_locations_lines
+        self._events = events
+
+    def add_adjacent_location(self, access_line_to, access_line_from, location):
+        self._adjacent_locations_lines.append(access_line_to)
+        access_line_to.to_ = location
+        access_line_to.from_ = self
+
+        location._adjacent_locations_lines.append(access_line_from)
+        access_line_from.to_ = self
+        access_line_from.from_ = location
+
+    def base_add_location(self, location):
+        line_to = AccessLine()
+        line_from = AccessLine()
+        self.add_adjacent_location(line_to, line_from, location)
+
+    def add_event(self, event):
+        self._events.append(event)
+
+
+class MiniLocation(Location):
+    pass
+
+
+class AccessLine:
+    def __init__(self, conditions=None, to_=None, from_=None):
+        if conditions is None:
+            self.conditions = {}
+        self.to_ = to_
+        self.from_ = from_
+
+    def check_conditions(self, player, signals):
+        for condition in self.conditions:
+            if condition.check(player, signals):
+                return True
+        return False
