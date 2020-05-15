@@ -1,4 +1,5 @@
 class ObjectWithName:
+    """Abstract class   """
     _name: str
 
     @property
@@ -43,16 +44,24 @@ class IAccessible:
     могут ссылаться обьекты AccessLine.
     (Location, Thing)
     """
-    pass
+    def check_access_line(self, line):
+        pass
 
 
-class Location(IAccessible, ObjectWithName):
-    def __init__(self, name, used_things, things_lines, adjacent_locations_lines, events):
+class IShareAccessLine:
+    """Interface"""
+    def get_all_accessible_objects(self, player, signals):
+        pass
+
+
+class Location(IAccessible, IShareAccessLine, ObjectWithName):
+    def __init__(self, name, used_things, things_lines, adjacent_locations_lines, events, room):
         self._name = name
         self._used_things = used_things
         self._things_lines = things_lines
         self._adjacent_locations_lines = adjacent_locations_lines
         self._events = events
+        self._room = room
 
     def add_adjacent_location(self, access_line_to, access_line_from, location):
         self._adjacent_locations_lines.append(access_line_to)
@@ -63,6 +72,9 @@ class Location(IAccessible, ObjectWithName):
         access_line_from.to_ = self
         access_line_from.from_ = location
 
+        if location not in self._room:
+            self._room.add_location(location)
+
     def base_add_location(self, location):
         line_to = AccessLine()
         line_from = AccessLine()
@@ -70,6 +82,14 @@ class Location(IAccessible, ObjectWithName):
 
     def add_event(self, event):
         self._events.append(event)
+
+    def check_access_line(self, line):
+        return line.to_ is self
+
+    def get_all_accessible_objects(self, player, signals):
+        for line in self._adjacent_locations_lines:
+            if line.check_conditions(player, signals):
+                yield line.to_
 
 
 class MiniLocation(Location):
@@ -80,8 +100,8 @@ class AccessLine:
     def __init__(self, conditions=None, to_=None, from_=None):
         if conditions is None:
             self.conditions = {}
-        self.to_ = to_
-        self.from_ = from_
+        self._to_ = to_
+        self._from_ = from_
 
     def check_conditions(self, player, signals):
         for condition in self.conditions:

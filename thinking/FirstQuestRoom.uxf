@@ -356,7 +356,7 @@ name: key
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>639</x>
+      <x>603</x>
       <y>981</y>
       <w>135</w>
       <h>63</h>
@@ -504,7 +504,7 @@ conditions: [
 		knowladges: ['картина мира']
 	}
 ]</panel_attributes>
-    <additional_attributes>270.0;10.0;10.0;260.0</additional_attributes>
+    <additional_attributes>230.0;10.0;10.0;260.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -516,8 +516,7 @@ conditions: [
     </coordinates>
     <panel_attributes>Location
 --
-name: под кроватью
-visible: False
+name: за кроватью
 --</panel_attributes>
     <additional_attributes/>
   </element>
@@ -550,9 +549,9 @@ name: key
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
+      <x>684</x>
       <y>1035</y>
-      <w>171</w>
+      <w>189</w>
       <h>252</h>
     </coordinates>
     <panel_attributes>lt=-
@@ -565,7 +564,7 @@ conditions: [
 		knowladge: ['картина мира']
 	}
 ]</panel_attributes>
-    <additional_attributes>10.0;10.0;30.0;260.0</additional_attributes>
+    <additional_attributes>10.0;10.0;70.0;260.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
