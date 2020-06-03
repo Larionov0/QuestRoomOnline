@@ -1,3 +1,7 @@
+from .Exceptions import EmptyRoomException
+from DB.db_manager import ISaveble, DatabaseManager
+
+
 class ObjectWithName:
     """Abstract class   """
     _name: str
@@ -7,7 +11,7 @@ class ObjectWithName:
         return self._name
 
 
-class QuestRoom(ObjectWithName):
+class QuestRoom(ISaveble, ObjectWithName):
     def __init__(self, name, count_of_players, rooms, reward, players=None):
         self._name = name
         self.__count_of_players = count_of_players
@@ -25,9 +29,15 @@ class QuestRoom(ObjectWithName):
     def count_of_players(self):
         return self.__count_of_players
 
+    def save(self):
+        pass
 
-class Room(ObjectWithName):
+
+class Room(ISaveble, ObjectWithName):
     def __init__(self, name, locations, players=None):
+        if len(locations) == 0:
+            raise EmptyRoomException()
+
         self._name = name
         self._locations = locations
         if players is None:
@@ -36,6 +46,9 @@ class Room(ObjectWithName):
 
     def add_location(self, location):
         self._locations.append(location)
+
+    def save(self):
+        pass
 
 
 class IAccessible:
@@ -54,7 +67,7 @@ class IShareAccessLine:
         pass
 
 
-class Location(IAccessible, IShareAccessLine, ObjectWithName):
+class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName):
     def __init__(self, name, used_things, things_lines, adjacent_locations_lines, events, room):
         self._name = name
         self._used_things = used_things
@@ -91,12 +104,16 @@ class Location(IAccessible, IShareAccessLine, ObjectWithName):
             if line.check_conditions(player, signals):
                 yield line.to_
 
+    def save(self):
+        pass
 
-class MiniLocation(Location):
-    pass
+
+class MiniLocation(ISaveble, Location):
+    def save(self):
+        pass
 
 
-class AccessLine:
+class AccessLine(ISaveble):
     def __init__(self, conditions=None, to_=None, from_=None):
         if conditions is None:
             self.conditions = {}
@@ -105,6 +122,13 @@ class AccessLine:
 
     def check_conditions(self, player, signals):
         for condition in self.conditions:
-            if condition.check(player, signals):
-                return True
+            try:
+                if condition.check(player, signals):
+                    return True
+            except AttributeError:
+                continue
+
         return False
+
+    def save(self):
+        pass
