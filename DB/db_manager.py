@@ -84,9 +84,12 @@ class DatabaseManager:
         """
         self.execute(query, commit=True)
 
-    def get_row(self, table_name, id, primary_str='id'):
+    def get_row(self, table_name, id, primary_str='id', columns=None):
+        col_str = "*"
+        if columns:
+            col_str = ', '.join(columns)
         query = f"""
-                SELECT *
+                SELECT {col_str}
                 FROM {table_name}
                 WHERE {primary_str} = {id}
                 """

@@ -1,5 +1,5 @@
 from .Exceptions import EmptyRoomException
-from DB.db_manager import ISaveble, DatabaseManager
+from DB.db_manager import ISaveble, DatabaseManager, MySQLdb
 
 
 class ObjectWithName:
@@ -33,9 +33,24 @@ class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
             players = []
         self.__players = players
 
+    @classmethod
+    def get_by_id(cls, id_):
+        db_manager = DatabaseManager.get_instance()
+        row = db_manager.get_row('QuestRoom', id_, columns=['id', 'name', 'count_of_players', 'complexity', 'description'])
+        return cls(*row)
+
     def add_player(self, player):
         if len(self.__players) < self._count_of_players:
             self.__players.append(player)
+
+    @property
+    def start_location(self):
+        try:
+            db_manager = DatabaseManager.get_instance()
+            loc_id = db_manager.get_one_value_of_one_table('QuestRoom', 'start_location_id', self.id)
+            return Location.get_by_id(loc_id)
+        except MySQLdb._exceptions.OperationalError:
+            return None
 
     @property
     def start_location_id(self):
@@ -90,6 +105,13 @@ class Room(ISaveble, ObjectWithName, ObjectWithID):
         if players is None:
             players = []
         self._players = players
+
+    @classmethod
+    def get_by_id(cls, id_):
+        db_manager = DatabaseManager.get_instance()
+        row = db_manager.get_row('Room', id_, columns=['name', 'quest_room_id'])
+        quest_room = QuestRoom.get_by_id(row[1])
+        return cls(id_, row[0], quest_room)
 
     def add_location(self, location):
         self._locations.append(location)
@@ -204,8 +226,15 @@ class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName, ObjectWi
                 room = Room(r[0], r[1], self._room.quest_room)
             yield Location(row[0], row[1], room)
 
+    @classmethod
+    def get_by_id(cls, id_):
+        db_manager = DatabaseManager.get_instance()
+        row = db_manager.get_row('Location', id_, columns=['name', 'room_id'])
+        room = Room.get_by_id(row[1])
+        return cls(id_, row[0], room)
+
     def __str__(self):
-        return f"{self._id} Location {self._name} (in {self._room.name})"
+        return f"({self._id}) {self._name} (in {self._room.name})"
 
     def __repr__(self):
         return f"<{self.__str__()}>"

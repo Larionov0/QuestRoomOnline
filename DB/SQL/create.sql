@@ -34,7 +34,7 @@ CREATE TABLE PLAYER (
     coins INTEGER,
     quest_room_id INTEGER NULL references QuestRoom(id),
     room_id INTEGER NULL references Room(id),
-    location INTEGER NULL references Location(id)
+    location_id INTEGER NULL references Location(id)
 );
 
 ALTER TABLE QuestRoom
