@@ -1,23 +1,23 @@
 insert into Location(id, name, room_id)
-values (1, 'У руля', 1);
+values (1, 'At the helm', 1);
 
 insert into Location(id, name, room_id)
-values (2, 'У аптечки', 1);
+values (2, 'At the first-aid kit', 1);
 
 insert into Location(id, name, room_id)
-values (3, 'Возле дивана', 2);
+values (3, 'Near the sofa', 2);
 
 insert into Location(id, name, room_id)
-values (4, 'Под диваном', 2);
+values (4, 'Under the sofa', 2);
 
 insert into Location(id, name, room_id)
-values (5, 'У окна', 2);
+values (5, 'Near the window', 2);
 
 insert into Location(id, name, room_id)
-values (6, 'На унитазе', 3);
+values (6, 'On the toilet', 3);
 
 insert into Location(id, name, room_id)
-values (7, 'Под плинтусом', 4);
+values (7, 'Under the baseboard', 4);
 
 UPDATE QuestRoom
 SET start_location_id = 1

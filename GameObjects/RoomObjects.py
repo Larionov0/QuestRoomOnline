@@ -71,6 +71,9 @@ class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
         for row in table:
             yield cls(*row)
 
+    def get_rooms(self):
+        return Room.get_rooms_by_quest_room(self)
+
     def __str__(self):
         return f"{self.id}. {self.name}  (complexity:{self.complexity}) {self._description[:20]}..."
 
@@ -78,12 +81,11 @@ class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
         return "< " + self.__str__() + ">"
 
 
-class Room(ISaveble, ObjectWithName):
-    def __init__(self, name, locations, players=None):
-        if len(locations) == 0:
-            raise EmptyRoomException()
-
+class Room(ISaveble, ObjectWithName, ObjectWithID):
+    def __init__(self, id_, name, quest_room, locations=None, players=None):
+        self._id = id_
         self._name = name
+        self._quest_room = quest_room
         self._locations = locations
         if players is None:
             players = []
@@ -94,6 +96,19 @@ class Room(ISaveble, ObjectWithName):
 
     def save(self):
         pass
+
+    @classmethod
+    def get_rooms_by_quest_room(cls, quest_room):
+        db_manager = DatabaseManager.get_instance()
+        table = db_manager.get_table('Room', ['id', 'name'], f'quest_room_id = {quest_room.id}')
+        for row in table:
+            yield Room(row[0], row[1], quest_room)
+
+    def __str__(self):
+        return f"{self._id} Room: {self._name} (in {self._quest_room.name})"
+
+    def __repr__(self):
+        return f"<{self.__str__()}>"
 
 
 class IAccessible:

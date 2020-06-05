@@ -47,7 +47,9 @@ class DatabaseManager:
         try:
             self.cursor.execute(query)
         except MySQLdb._exceptions.ProgrammingError as e:
-            print(f"SQL error: {e}")
+            print(f"SQL error: ")
+            print(query)
+            raise e
             return False
         if fetchall:
             return self.fetchall()
@@ -94,12 +96,14 @@ class DatabaseManager:
 
         return result[0]
 
-    def get_table(self, table_name, columns):
+    def get_table(self, table_name, columns, where=None):
         columns_str = ",".join(columns)
         query = f"""
                         SELECT {columns_str}
                         FROM {table_name}
                  """
+        if where:
+            query += "WHERE "+where
         result = self.execute(query, True)
         return result
 
