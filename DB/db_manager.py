@@ -158,6 +158,21 @@ class DatabaseManager:
             lst.append(row[0])
         return lst
 
+    def many_to_many_super_set(self, table_name, many_to_many_table_name, target_table_name, field1_name, field2_name, id_):
+        query = f"""
+                SELECT {target_table_name}.id FROM
+                (
+                SELECT * FROM {many_to_many_table_name}
+                WHERE {many_to_many_table_name}.{field1_name} = {id_}
+                ) as temp
+                JOIN {target_table_name} ON temp.{field2_name} = {target_table_name}.id
+                """
+        result = self.execute(query, True)
+        lst = []
+        for row in result:
+            lst.append(row[0])
+        return lst
+
     @staticmethod
     def clear__(word):
         if word[-1] == '_':

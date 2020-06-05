@@ -97,12 +97,19 @@ class Room(ISaveble, ObjectWithName, ObjectWithID):
     def save(self):
         pass
 
+    @property
+    def quest_room(self):
+        return self._quest_room
+
     @classmethod
     def get_rooms_by_quest_room(cls, quest_room):
         db_manager = DatabaseManager.get_instance()
         table = db_manager.get_table('Room', ['id', 'name'], f'quest_room_id = {quest_room.id}')
         for row in table:
             yield Room(row[0], row[1], quest_room)
+
+    def get_locations(self):
+        return Location.get_locations_by_room(self)
 
     def __str__(self):
         return f"{self._id} Room: {self._name} (in {self._quest_room.name})"
@@ -129,8 +136,9 @@ class IShareAccessLine:
         pass
 
 
-class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName):
-    def __init__(self, name, used_things, things_lines, adjacent_locations_lines, events, room):
+class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName, ObjectWithID):
+    def __init__(self, id_, name, room, used_things=None, things_lines=None, adjacent_locations_lines=None, events=None):
+        self._id = id_
         self._name = name
         self._used_things = used_things
         self._things_lines = things_lines
@@ -168,6 +176,39 @@ class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName):
 
     def save(self):
         pass
+
+    @classmethod
+    def get_locations_by_room(cls, room):
+        db_manager = DatabaseManager.get_instance()
+        table = db_manager.get_table('Location', ['id', 'name'], f'room_id = {room.id}')
+        for row in table:
+            yield Location(row[0], row[1], room)
+
+    def get_adjacent_locations(self):
+        db_manager = DatabaseManager.get_instance()
+
+        query = f"""
+                        SELECT Location.id, Location.name, Location.room_id FROM
+                        (
+                        SELECT * FROM AccessLine
+                        WHERE AccessLine.from_id = {self._id}
+                        ) as temp
+                        JOIN Location ON temp.to_id = Location.id
+                """
+        result = db_manager.execute(query, True)
+        for row in result:
+            if row[2] == self._room.id:
+                room = self._room
+            else:
+                r = db_manager.get_row('Room', row[2])
+                room = Room(r[0], r[1], self._room.quest_room)
+            yield Location(row[0], row[1], room)
+
+    def __str__(self):
+        return f"{self._id} Location {self._name} (in {self._room.name})"
+
+    def __repr__(self):
+        return f"<{self.__str__()}>"
 
 
 class MiniLocation(Location):
