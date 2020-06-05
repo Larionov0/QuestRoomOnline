@@ -1,5 +1,6 @@
 from GameObjects.Exceptions import SingletoneException
 from GameObjects.UserEnv import *
+from GameObjects.RoomObjects import *
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
 

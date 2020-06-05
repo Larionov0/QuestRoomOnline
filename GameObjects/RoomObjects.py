@@ -108,7 +108,7 @@ class Location(ISaveble, IAccessible, IShareAccessLine, ObjectWithName):
         pass
 
 
-class MiniLocation(ISaveble, Location):
+class MiniLocation(Location):
     def save(self):
         pass
 
