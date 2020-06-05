@@ -18,3 +18,7 @@ values (6, 'На унитазе', 3);
 
 insert into Location(id, name, room_id)
 values (7, 'Под плинтусом', 4);
+
+UPDATE QuestRoom
+SET start_location_id = 1
+WHERE id = 3;

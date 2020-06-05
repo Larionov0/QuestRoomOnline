@@ -6,7 +6,7 @@ CREATE TABLE QuestRoom (
     count_of_players INTEGER,
     complexity INTEGER CHECK (complexity >= 1 and complexity <= 5),
     description VARCHAR(400),
-    start_location_id INTEGER
+    start_location_id INTEGER NULL
 );
 
 CREATE TABLE Room (
