@@ -5,7 +5,8 @@ CREATE TABLE QuestRoom (
     name VARCHAR(40),
     count_of_players INTEGER,
     complexity INTEGER CHECK (complexity >= 1 and complexity <= 5),
-    description VARCHAR(400)
+    description VARCHAR(400),
+    start_location_id INTEGER
 );
 
 CREATE TABLE Room (
@@ -35,3 +36,6 @@ CREATE TABLE PLAYER (
     room_id INTEGER NULL references Room(id),
     location INTEGER NULL references Location(id)
 );
+
+ALTER TABLE QuestRoom
+ADD foreign key (start_location_id) references Location(id);

@@ -21,13 +21,14 @@ class ObjectWithID:
 
 
 class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
-    def __init__(self, id_, name, count_of_players, complexity=1, description='', reward=None, players=None):
+    def __init__(self, id_, name, count_of_players, complexity=1, description='', start_location_id=None, reward=None, players=None):
         self._id = id_
         self._name = name
         self._count_of_players = count_of_players
         self._complexity = complexity
         self._description = description
         self._reward = reward
+        self._start_location_id = start_location_id
         if players is None:
             players = []
         self.__players = players
@@ -35,6 +36,10 @@ class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
     def add_player(self, player):
         if len(self.__players) < self._count_of_players:
             self.__players.append(player)
+
+    @property
+    def start_location_id(self):
+        return self.start_location_id
 
     @property
     def count_of_players(self):
