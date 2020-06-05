@@ -16,7 +16,8 @@ CREATE TABLE Room (
 
 CREATE TABLE Location (
     id INTEGER PRIMARY KEY,
-    name VARCHAR(60)
+    name VARCHAR(60),
+    room_id INTEGER references Room(id)
 );
 
 CREATE TABLE AccessLine (
