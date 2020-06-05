@@ -11,26 +11,66 @@ class ObjectWithName:
         return self._name
 
 
-class QuestRoom(ISaveble, ObjectWithName):
-    def __init__(self, name, count_of_players, rooms, reward, players=None):
+class ObjectWithID:
+    """Abstract class   """
+    _id: int
+
+    @property
+    def id(self):
+        return self._id
+
+
+class QuestRoom(ISaveble, ObjectWithName, ObjectWithID):
+    def __init__(self, id_, name, count_of_players, complexity=1, description='', reward=None, players=None):
+        self._id = id_
         self._name = name
-        self.__count_of_players = count_of_players
-        self.__rooms = rooms
-        self.__reward = reward
+        self._count_of_players = count_of_players
+        self._complexity = complexity
+        self._description = description
+        self._reward = reward
         if players is None:
             players = []
         self.__players = players
 
     def add_player(self, player):
-        if len(self.__players) < self.__count_of_players:
+        if len(self.__players) < self._count_of_players:
             self.__players.append(player)
 
     @property
     def count_of_players(self):
-        return self.__count_of_players
+        return self._count_of_players
+
+    @property
+    def complexity(self):
+        return self._complexity
+
+    @property
+    def description(self):
+        return self._description
+
+    @property
+    def rooms(self):
+        pass
+
+    @property
+    def count_of_players(self):
+        return self._count_of_players
 
     def save(self):
         pass
+
+    @classmethod
+    def find_all_quest_rooms(cls):
+        db_manager = DatabaseManager.get_instance()
+        table = db_manager.get_table('QuestRoom', ['id', 'name', 'count_of_players', 'complexity', 'description'])
+        for row in table:
+            yield cls(*row)
+
+    def __str__(self):
+        return f"{self.id}. {self.name}  (complexity:{self.complexity}) {self._description[:20]}..."
+
+    def __repr__(self):
+        return "< " + self.__str__() + ">"
 
 
 class Room(ISaveble, ObjectWithName):
@@ -57,12 +97,14 @@ class IAccessible:
     могут ссылаться обьекты AccessLine.
     (Location, Thing)
     """
+
     def check_access_line(self, line):
         pass
 
 
 class IShareAccessLine:
     """Interface"""
+
     def get_all_accessible_objects(self, player, signals):
         pass
 

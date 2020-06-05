@@ -1,1 +1,5 @@
 DROP TABLE Player;
+DROP TABLE AccessLine;
+DROP TABLE Location;
+DROP TABLE Room;
+DROP TABLE QuestRoom;

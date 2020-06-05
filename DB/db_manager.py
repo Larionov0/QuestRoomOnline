@@ -94,6 +94,15 @@ class DatabaseManager:
 
         return result[0]
 
+    def get_table(self, table_name, columns):
+        columns_str = ",".join(columns)
+        query = f"""
+                        SELECT {columns_str}
+                        FROM {table_name}
+                 """
+        result = self.execute(query, True)
+        return result
+
     def update_row(self, update_dict, table_name, id, primary_str='id'):
         query = f"""
         UPDATE {table_name} 
