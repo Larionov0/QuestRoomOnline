@@ -1,9 +1,9 @@
-class Ebanavt:
+class Guy:
     def __init__(self, name, job):
         self._name = name
         self._job = job
 
-    def fuck_off(self, other):
+    def fck_off(self, other):
         other._name += self._name
 
     @property
@@ -11,9 +11,9 @@ class Ebanavt:
         return self._name
 
 
-bob = Ebanavt("Bob", "blow")
-boba = Ebanavt("Boba", "job")
+bob = Guy("Bob", "blow")
+boba = Guy("Boba", "job")
 
-bob.fuck_off(boba)
+bob.fck_off(boba)
 
 print(boba.name)
